@@ -51,5 +51,6 @@ public class MainToBubble {
         System.out.printf("Tempo de execução: %.3f segundos%n", seconds);
         System.out.printf("Memória usada: %.3f MB%n", memoryUsedMB);
         System.out.println("Arquivo salvo em: " + outputFile);
+        System.out.println("Hardware utilizado: i5 10400f + 8gb Ram DDR4 + H510 + GTX 1660 + SSD SATA III");
     }
 }
