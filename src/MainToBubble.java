@@ -8,7 +8,7 @@ public class MainToBubble {
         String inputFile = "C:\\Users\\Usuario\\Downloads\\arq.txt"; // ajuste aqui
         String outputFile = "ordenado_bubble.txt";
 
-        long memoryBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(); // memória usada antes
+         // memória usada antes
          // ⏱ início do tempo
 
         try {
@@ -27,11 +27,15 @@ public class MainToBubble {
 
             // Converte para array e ordena
             long startTime = System.nanoTime();
+            long memoryBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
             int[] array = numeros.stream().mapToInt(Integer::intValue).toArray();
             bubbleSort(array);
             long endTime = System.nanoTime();
             double seconds = (endTime - startTime) / 1_000_000_000.0;
             System.out.printf("Tempo de execução: %.3f segundos%n", seconds);
+            long memoryAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            double memoryUsedMB = (memoryAfter - memoryBefore) / (1024.0 * 1024.0);
+            System.out.printf("Memória usada: %.3f MB%n", memoryUsedMB);
 
             // Escreve no arquivo de saída (um número por linha)
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
@@ -48,12 +52,9 @@ public class MainToBubble {
         }
 
 
-        long memoryAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-
-        double memoryUsedMB = (memoryAfter - memoryBefore) / (1024.0 * 1024.0);
 
         // 🖨️ Exibição dos resultados
-        System.out.printf("Memória usada: %.3f MB%n", memoryUsedMB);
+
         System.out.println("Arquivo salvo em: " + outputFile);
         System.out.println("Hardware utilizado: i5 10400f + 8gb Ram DDR4 + H510 + GTX 1660 + SSD SATA III");
     }
