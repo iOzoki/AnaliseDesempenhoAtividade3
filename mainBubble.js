@@ -36,11 +36,12 @@ try {
     bubbleSort(numbers);
     const end = performance.now();
     const memoryAfter = process.memoryUsage().heapUsed;
+    const memoryUsedMB = Math.abs((memoryAfter - memoryBefore) / 1024 / 1024);
 
     fs.writeFileSync(outputFile, numbers.join('\n'));
 
     console.log(`Tempo de execução: ${(end - start) / 1000} segundos`);
-    console.log(`Memória usada: ${((memoryAfter - memoryBefore) / 1024 / 1024).toFixed(3)} MB`);
+    console.log(`Memória usada: ${memoryUsedMB.toFixed(3)} MB`);
     console.log(`Arquivo salvo em: ${outputFile}`);
     console.log("Hardware utilizado: i5 10400f + 8gb Ram DDR4 + H510 + GTX 1660 + SSD SATA III");
 } catch (err) {
