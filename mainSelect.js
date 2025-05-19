@@ -1,44 +1,36 @@
 const fs = require('fs');
 const { performance } = require('perf_hooks');
 
-function bubbleSort(arr) {
-    let n = arr.length;
-    let trocou;
-
-    do {
-        trocou = false;
-        for (let i = 0; i < n - 1; i++) {
-            if (arr[i] > arr[i + 1]) {
-                
-                [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-                trocou = true;
-            }
+function selectionSort(arr) {
+    for (let i = 0; i < arr.length - 1; i++) {
+        let min = i;
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[min]) min = j;
         }
-        n--; 
-    } while (trocou);
-
-    return arr;
+        if (min !== i) {
+            [arr[i], arr[min]] = [arr[min], arr[i]];
+        }
+    }
 }
 
 const inputFile = "C:\\Users\\Usuario\\Downloads\\arq.txt";        
-const outputFile = "ordenadoBubble.txt";  
-
-
-
+const outputFile = "ordenadoSelection.txt";  
 
 try {
     const data = fs.readFileSync(inputFile, 'utf8');
     const numbers = data.split(/\r?\n/)
                         .filter(l => l.trim() !== "")
                         .map(Number);
-    const memoryBefore = process.memoryUsage().heapUsed;
+    
     const start = performance.now();
-    bubbleSort(numbers);
+    const memoryBefore = process.memoryUsage().heapUsed;                    
+    selectionSort(numbers);
     const end = performance.now();
     const memoryAfter = process.memoryUsage().heapUsed;
 
     fs.writeFileSync(outputFile, numbers.join('\n'));
 
+    
     console.log(`Tempo de execução: ${(end - start) / 1000} segundos`);
     console.log(`Memória usada: ${((memoryAfter - memoryBefore) / 1024 / 1024).toFixed(3)} MB`);
     console.log(`Arquivo salvo em: ${outputFile}`);
